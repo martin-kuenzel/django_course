@@ -5,7 +5,7 @@ from datetime import datetime
 class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
-    date_created = models.DateTimeField(default=datetime.now)
+    date_created = models.DateTimeField('date_published')
     date_updated = models.DateTimeField(default=datetime.now)
 
     def __str__(self):

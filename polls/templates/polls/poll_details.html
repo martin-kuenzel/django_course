@@ -4,8 +4,22 @@
 <div class="content">
     {{poll.content}}
 </div>
-<form method="POST">
-    <fieldset><legend></legend>
+<hr>
+
+{% if error_message %}<p><strong style="color:red;">{{ error_message }}</strong></p>{% endif %}
+
+<form method="POST" action="{% url 'poll-vote' poll.id %}">
+    {% csrf_token %}
+    <fieldset><legend>Options</legend>
+            {% for option in poll.option_set.all %}
+                <div>
+                    <input id="{{option.id}}" value="{{option.id}}" name="option" type="radio">
+                    <label for="{{option.id}}">{{option.title}}</label>
+                </div>
+            {% endfor %}
     </fieldset>
+    <div>
+        <button type="submit">voten</button>
+    </div>
 </form>
 {% endblock content %}
