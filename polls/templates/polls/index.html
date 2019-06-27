@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h1>Welcome to the {{title}} Mainpage</h1>
+<ul>
+    {% for poll in polls %}
+    <li>
+        <a href="{% url 'poll-details' poll.id %}">{{poll.title}}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}

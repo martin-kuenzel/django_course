@@ -24,6 +24,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
+    'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,7 +73,7 @@ DATABASES = {
         'NAME': 'djangoproject2',
         'USER': 'root',
         'PASSWORD': 'test@PASSW',
-        'PORT': '' #os.path.join(BASE_DIR, 'db.sqlite3'),
+        'PORT': ''
     }
 }
 

@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h1>Welcome to the poll "{{poll.title}}"</h1>
+<div class="content">
+    {{poll.content}}
+</div>
+<form method="POST">
+    <fieldset><legend></legend>
+    </fieldset>
+</form>
+{% endblock content %}
