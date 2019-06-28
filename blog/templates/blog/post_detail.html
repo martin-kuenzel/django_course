@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<header><h1>"{{post.title}}"</h1></header>
+<div class="content">
+    <article>
+        {{post.content}}
+    </article>
+</div>
+<div class="btn"><a href="{% url 'blog-index' %}">back to mainpage</a></div>
+{% endblock content %}
