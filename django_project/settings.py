@@ -48,7 +48,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,7 +72,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djangoproject2',
         'USER': 'root',
-        'PASSWORD': 'test@PASSW',
+        'PASSWORD': os.environ.get('PASSW'), #'test@PASSW',
         'PORT': ''
     }
 }

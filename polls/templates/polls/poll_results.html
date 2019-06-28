@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<h1>The poll`s "{{poll.title}}" results</h1>
+<header><h1>The poll`s "{{poll.title}}" results</h1></header>
 <div class="content">
     {{poll.content}}
 </div>
@@ -11,6 +11,6 @@
         <li>{{option.votes}} voter{{option.votes|pluralize}} voted for {{option.title}}</li>
         {% endfor %}
     </ul>
-    <div><a href="{% url 'polls-index' %}">back to mainpage</a></div>
+    <div class="btn"><a href="{% url 'polls-index' %}">back to mainpage</a></div>
 </article>
 {% endblock content %}
