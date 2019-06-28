@@ -10,6 +10,6 @@
         <li>{{option.votes}} voter{{option.votes|pluralize}} voted for {{option.title}}</li>
         {% endfor %}
     </ul>
-    <div class="btn"><a href="{% url 'polls-index' %}">back to mainpage</a></div>
+    <div class="btn-small"><a href="{% url 'polls-index' %}">back to mainpage</a></div>
 </article>
 {% endblock content %}

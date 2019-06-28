@@ -1,10 +1,10 @@
-body {
+/* body {
     background: white url("images/background.jpg") left 50% top 15%;
-}
-header, fieldset, div, ul {background:rgba(200, 200, 200, .6); border-radius: 5px; padding: .5rem; border: solid thin #666; }
+} */
+/* header, fieldset, div, ul, .btn-small, .btn {background:rgba(200, 200, 200, .6); border-radius: 5px; padding: .5rem; border: solid thin #666; } */
 
 /* .btn { border: solid thin #666; margin-left: .1rem; } */
-ul { padding-left: 2rem; }
+/* ul { padding-left: 2rem; }
 
 legend {
     color: aliceblue;
@@ -16,4 +16,4 @@ li a {
 li:hover {
     background: lightsteelblue;
     color: red;
-}
+} */

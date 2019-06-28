@@ -21,4 +21,6 @@
         <button type="submit">voten</button>
     </div>
 </form>
+<div class="btn-small"><a href="{% url 'polls-index' %}">back to mainpage</a></div>
+<div class="btn-small"><a href="{% url 'poll-results' poll.pk %}">go to results</a></div>
 {% endblock content %}

@@ -1,11 +1,14 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 <header><h1>Welcome to the Polls Mainpage</h1></header>
-<ul>
+<ul class="card-panel">
     {% for poll in polls %}
     <li>
         <a href="{% url 'poll-details' poll.id %}">{{poll.title}}</a>
     </li>
     {% endfor %}
 </ul>
+<div>
+    <a class="btn-small" href="{% url 'blog-index' %}">go to the blog</a>
+</div>
 {% endblock content %}
