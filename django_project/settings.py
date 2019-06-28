@@ -72,7 +72,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djangoproject2',
         'USER': 'root',
-        'PASSWORD': os.environ.get('PASSW'), #'test@PASSW',
+        'PASSWORD': os.environ.get('PASSW'),
         'PORT': ''
     }
 }
