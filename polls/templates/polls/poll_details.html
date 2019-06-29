@@ -9,15 +9,19 @@
 </div>
 
 <form style="padding-top: 1rem; padding-bottom:1rem;" class="card" method="POST" action="{% url 'poll-vote' poll.id %}">
-    
     {% csrf_token %}
-    {% for option in poll.option_set.all %}
-    <p>
-        <label>
-            <input class="with-gap" id="{{option.id}}" {% if forloop.counter == 1 %} checked {% endif %} value="{{option.id}}" name="option" type="radio">
-            <span>{{option.title}}</span>
-        </label>
-    </p>
+    {% for optionset in poll.optionset_set.all %}
+        <fieldset class="card">
+            <legend>{{optionset.title}}</legend>
+            {% for option in optionset.option_set.all %}
+            <p>
+                <label>
+                    <input class="with-gap" id="{{option.id}}" {% if forloop.counter == 1 %} checked {% endif %} value="{{option.id}}" name="{{optionset.pk}}" type="radio">
+                    <span>{{option.title}}</span>
+                </label>
+            </p>
+            {% endfor %}
+        </fieldset>
     {% endfor %}
     <div class="center-align">
         <button class="btn-small green lighten-2" type="submit">voten</button>

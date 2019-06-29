@@ -3,11 +3,14 @@
 <h5 class="blue-grey darken-1 header">"{{poll.title}}" results</h5>
 <div class="container">
     <div class="center-align">{{poll.content}}</div>
-    <ul>
-        {% for option in poll.option_set.all %}
-        <li>{{option.votes}} voter{{option.votes|pluralize}} voted for {{option.title}}</li>
-        {% endfor %}
-    </ul>
+    {% for optionset in poll.optionset_set.all %}
+        <fieldset class="section">
+            <legend>{{optionset.title}}</legend>
+            {% for option in optionset.option_set.all %}
+            <p>{{option.votes}} voter{{option.votes|pluralize}} voted for {{option.title}}</p>
+            {% endfor %}
+        </fieldset>
+    {% endfor %}
 </div>
 <div class="right-align" style="margin-top:1rem;">
     <a class="btn-small blue-grey lighten-2" href="{% url 'polls-index' %}">back to mainpage</a>

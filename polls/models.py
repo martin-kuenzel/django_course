@@ -20,18 +20,19 @@ class Poll(models.Model):
     was_published_recently.boolean = True
     was_published_recently.short_description = 'Published recently'
 
-# class OptionSet(models.Model):
-#     poll = models.ForeignKey(Poll,on_delete=models.CASCADE)
-#     title = models.CharField(max_length=200)
-#     #requires = models.ManyToManyField(Option,default=None)
-#     #constraints = models.ManyToManyField(Option,default=None)
+class OptionSet(models.Model):
+    poll = models.ForeignKey(Poll,on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+    #requires = models.ManyToManyField(Option,default=None)
+    #constraints = models.ManyToManyField(Option,default=None)
 
-#     def __str__(self):
-#         return f'{self.title} ({self.votes} votes)'
+    def __str__(self):
+        return f'{self.title} ({self.votes} votes)'
 
 class Option(models.Model):
-    poll = models.ForeignKey(Poll,on_delete=models.CASCADE)
-    # optionset = models.ForeignKey(OptionSet,on_delete=models.CASCADE)
+    # poll = models.ForeignKey(Poll,on_delete=models.CASCADE)
+    optionset = models.ForeignKey(OptionSet,on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 

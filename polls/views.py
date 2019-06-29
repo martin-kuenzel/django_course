@@ -34,15 +34,30 @@ class ResultsView(generic.DetailView):
 
 def poll_vote(req,poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
-    try:
-        selected_option = poll.option_set.get(pk=req.POST['option'])
-    except (KeyError, Option.DoesNotExist):
-        return render('polls/poll_details.html',{
-            'poll_id': poll.pk,
-            'error_msg':"Your selected choice was invalid."
-        })
-    else:
+    selected_options = []
+
+    # loop through the polls optionsets 
+    for optionset in poll.optionset_set.all():
+    
+        # try to assign current optionset`s seleced option to a value
+        try:
+            selected_option = optionset.option_set.get( pk = req.POST[f'{optionset.pk}'] )
+            #selected_option = poll.optionset_set.get(pk=req.POST['option'])
+
+        # if the assignment throws an exception return to the poll, hence forcing the user to restart ... hehehe
+        except (KeyError, Option.DoesNotExist):
+            return render('polls/poll_details.html',{
+                'poll_id': poll.pk,
+                'error_msg':"Your selected choice was invalid."
+            })
+
+        # if the assignment is valid add the selected option to a list
+        else:
+            selected_options.append(selected_option)
+
+    # All selected options are valid, hence += 1 all of them 
+    for selected_option in selected_options:
         selected_option.votes += 1
         selected_option.save()
-    
+
     return HttpResponseRedirect( reverse( 'poll-results', args=(poll.pk,) ) )
