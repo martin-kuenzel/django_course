@@ -23,12 +23,12 @@ class Poll(models.Model):
 class OptionSet(models.Model):
     poll = models.ForeignKey(Poll,on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+    # votes = models.IntegerField(default=0)
     #requires = models.ManyToManyField(Option,default=None)
     #constraints = models.ManyToManyField(Option,default=None)
 
     def __str__(self):
-        return f'{self.title} ({self.votes} votes)'
+        return f'{self.title}'
 
 class Option(models.Model):
     # poll = models.ForeignKey(Poll,on_delete=models.CASCADE)

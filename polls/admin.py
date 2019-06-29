@@ -3,16 +3,16 @@ from .models import Poll, Option, OptionSet
 
 class OptionInline(admin.TabularInline):
     model = Option
-    extra = 3
+    extra = 0
 
 class OptionSetInline(admin.TabularInline):
     model = OptionSet
-    extra = 1
+    extra = 0
+    show_change_link = True
+    inlines = [OptionInline]
 
 class OptionSetAdmin(admin.ModelAdmin):
-    # fieldsets = [
-    #     ("Optionen", { 'fields': ['option'] } )
-    # ]
+    list_display = ('poll','title')
     inlines = [OptionInline]
 
 class PollAdmin(admin.ModelAdmin):

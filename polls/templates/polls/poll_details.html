@@ -4,11 +4,8 @@
 
 {% if error_message %}<p><strong style="color:red;">{{ error_message }}</strong></p>{% endif %}
 
-<div class="center-align">
-    {{poll.content}}
-</div>
-
-<form style="padding-top: 1rem; padding-bottom:1rem;" class="card" method="POST" action="{% url 'poll-vote' poll.id %}">
+<form style="padding-top: 1rem; padding-bottom:1rem; height:calc( 70vh - 4rem ); overflow-y: scroll;" class="container" method="POST" action="{% url 'poll-vote' poll.id %}">
+    <div class="center-align">{{poll.content}}</div>
     {% csrf_token %}
     {% for optionset in poll.optionset_set.all %}
         <fieldset class="card">

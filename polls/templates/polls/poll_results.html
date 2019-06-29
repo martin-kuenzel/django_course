@@ -1,10 +1,10 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 <h5 class="blue-grey darken-1 header">"{{poll.title}}" results</h5>
-<div class="container">
+<div class="container" style="height:calc( 70vh - 4rem );overflow-y: scroll;">
     <div class="center-align">{{poll.content}}</div>
     {% for optionset in poll.optionset_set.all %}
-        <fieldset class="section">
+        <fieldset class="card">
             <legend>{{optionset.title}}</legend>
             {% for option in optionset.option_set.all %}
             <p>{{option.votes}} voter{{option.votes|pluralize}} voted for {{option.title}}</p>
