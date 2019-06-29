@@ -9,10 +9,25 @@
     <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
 
     <!-- Compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
 
 </head>
 <body>
+    <h3 class="blue-grey darken-3" style="color:whitesmoke;margin-top:0;margin-bottom:0;padding-top:1rem;padding-bottom:1rem;padding-left:.1rem;">Corp. Mainheader</h3>
+    <div  class="blue-grey darken-3 header" style="padding-top:.1rem;padding-bottom:.1rem;">
+        {% if user.is_authenticated %}
+        <div class="right-align" style="">
+            <small>Logged in as {{user}}</small>&emsp;
+            <a class="lighten-2" href="{% url 'logout' %}">Logout</a>
+        </div>
+        {% else %}
+        <div class="right-align" style="margin-top:1rem;">
+            <a class="lighten-2" href="{% url 'login' %}">Login</a>
+        </div>
+        {% endif %}
+    </div>
     {% block content %}
     {% endblock content %}
 </body>

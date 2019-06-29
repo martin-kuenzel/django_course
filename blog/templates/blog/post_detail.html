@@ -1,10 +1,13 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<header><h1>"{{post.title}}"</h1></header>
-<div class="card-panel">
-    <article>
+<h5 class="blue-grey darken-1 header">{{post.title}}</h5>
+<div class="container">
+    <article class="section">
         {{post.content}}
     </article>
+    <div class="right-align">by {{post.author}} at {{post.date_created|date:"d/m/Y"}}</div>
 </div>
-<div class="btn-small"><a href="{% url 'blog-index' %}">back to mainpage</a></div>
+<div class="right-align" style="margin-top:1rem;">
+    <a class="btn-small blue-grey lighten-2" href="{% url 'blog-index' %}">back to mainpage</a>
+</div>
 {% endblock content %}

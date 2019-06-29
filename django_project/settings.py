@@ -23,6 +23,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registration.apps.RegistrationConfig',
     'blog.apps.BlogConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
@@ -115,3 +116,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# GO TO THE MAIN PAGE AFTER LOGGING IN
+LOGIN_REDIRECT_URL = '/'
+# THE LOGIN FORM 
+LOGIN_URL = 'users/login'
+#LOGOUT_REDIRECT_URL = '/'

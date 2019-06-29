@@ -1,26 +1,31 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<header><h1>The poll`s "{{poll.title}}" details</h1></header>
-<div class="content">
-    {{poll.content}}
-</div>
+<h5 class="blue-grey darken-1 header">{{poll.title}}</h5>
 
 {% if error_message %}<p><strong style="color:red;">{{ error_message }}</strong></p>{% endif %}
 
-<form method="POST" action="{% url 'poll-vote' poll.id %}">
+<div class="center-align">
+    {{poll.content}}
+</div>
+
+<form style="padding-top: 1rem; padding-bottom:1rem;" class="card" method="POST" action="{% url 'poll-vote' poll.id %}">
+    
     {% csrf_token %}
-    <fieldset><legend>Options</legend>
-            {% for option in poll.option_set.all %}
-                <div>
-                    <input id="{{option.id}}" value="{{option.id}}" name="option" type="radio">
-                    <label for="{{option.id}}">{{option.title}}</label>
-                </div>
-            {% endfor %}
-    </fieldset>
-    <div class='btn'>
-        <button type="submit">voten</button>
+    {% for option in poll.option_set.all %}
+    <p>
+        <label>
+            <input class="with-gap" id="{{option.id}}" {% if forloop.counter == 1 %} checked {% endif %} value="{{option.id}}" name="option" type="radio">
+            <span>{{option.title}}</span>
+        </label>
+    </p>
+    {% endfor %}
+    <div class="center-align">
+        <button class="btn-small green lighten-2" type="submit">voten</button>
     </div>
+
 </form>
-<div class="btn-small"><a href="{% url 'polls-index' %}">back to mainpage</a></div>
-<div class="btn-small"><a href="{% url 'poll-results' poll.pk %}">go to results</a></div>
+<div class="right-align" style="margin-top:1rem;">
+    <a class="btn-small blue-grey lighten-2" href="{% url 'polls-index' %}">back to mainpage</a>
+    <a class="btn-small blue-grey lighten-2" href="{% url 'poll-results' poll.pk %}">go to results</a>
+</div>
 {% endblock content %}

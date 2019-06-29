@@ -1,15 +1,15 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<header><h1>The poll`s "{{poll.title}}" results</h1></header>
-<div class="content">
-    {{poll.content}}
-</div>
-<article>
+<h5 class="blue-grey darken-1 header">"{{poll.title}}" results</h5>
+<div class="container">
+    <div class="center-align">{{poll.content}}</div>
     <ul>
         {% for option in poll.option_set.all %}
         <li>{{option.votes}} voter{{option.votes|pluralize}} voted for {{option.title}}</li>
         {% endfor %}
     </ul>
-    <div class="btn-small"><a href="{% url 'polls-index' %}">back to mainpage</a></div>
-</article>
+</div>
+<div class="right-align" style="margin-top:1rem;">
+    <a class="btn-small blue-grey lighten-2" href="{% url 'polls-index' %}">back to mainpage</a>
+</div>
 {% endblock content %}

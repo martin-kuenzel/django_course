@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<h5 class="blue-grey darken-1 header"></h5>
+
+{%if form.errors %}
+<div class="section center-align red lighten-2">Your username and password didn't match. Please try again.</div>
+{% endif %}
+
+{% if next %}
+
+    {% if user.is_authenticated %}
+        <p>Your account does not have sufficient access clearance.</p>
+    {% else %}
+        <p>Login to your account</p>
+    {% endif %}
+
+{% endif %}
+
+<div class="" style="padding:1rem;">
+    <form method="POST" action="{% url 'login' %}" >
+        {% csrf_token %}
+        {{form}}
+        <button class="btn-small blue-grey lighten-2" type="submit">Login</button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    <small><a href="{% url 'password_reset' %}">Forgot password ?</a></small>
+</div>
+
+{% endblock content %}
