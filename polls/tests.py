@@ -47,7 +47,7 @@ class PollIndexViewTests(TestCase):
         """
         If no polls exist, an appropriate message is displayed.
         """
-        response = self.client.get(reverse('polls-index'))
+        response = self.client.get(reverse('poll_index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No polls are available.")
         self.assertQuerysetEqual(response.context['polls'], [])
@@ -58,7 +58,7 @@ class PollIndexViewTests(TestCase):
         index page.
         """
         create_poll(title="Past poll.", days=-30)
-        response = self.client.get(reverse('polls-index'))
+        response = self.client.get(reverse('poll_index'))
         self.assertQuerysetEqual(
             response.context['polls'],
             ['<Poll: Past poll.>']
@@ -70,7 +70,7 @@ class PollIndexViewTests(TestCase):
         the index page.
         """
         create_poll(title="Future poll.", days=30)
-        response = self.client.get(reverse('polls-index'))
+        response = self.client.get(reverse('poll_index'))
         self.assertContains(response, "No polls are available.")
         self.assertQuerysetEqual(response.context['polls'], [])
 
@@ -81,7 +81,7 @@ class PollIndexViewTests(TestCase):
         """
         create_poll(title="Past poll.", days=-30)
         create_poll(title="Future poll.", days=30)
-        response = self.client.get(reverse('polls-index'))
+        response = self.client.get(reverse('poll_index'))
         self.assertQuerysetEqual(
             response.context['polls'],
             ['<Poll: Past poll.>']
@@ -93,7 +93,7 @@ class PollIndexViewTests(TestCase):
         """
         create_poll(title="Past poll 1.", days=-30)
         create_poll(title="Past poll 2.", days=-5)
-        response = self.client.get(reverse('polls-index'))
+        response = self.client.get(reverse('poll_index'))
         self.assertQuerysetEqual(
             response.context['polls'],
             ['<Poll: Past poll 2.>', '<Poll: Past poll 1.>']
@@ -106,7 +106,7 @@ class PollDetailViewTests(TestCase):
         returns a 404 not found.
         """
         future_poll = create_poll(title='Future poll.', days=5)
-        url = reverse('poll-details', args=(future_poll.id,))
+        url = reverse('poll_details', args=(future_poll.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
@@ -116,7 +116,7 @@ class PollDetailViewTests(TestCase):
         displays the poll's text.
         """
         past_poll = create_poll(title='Past Poll.', days=-5)
-        url = reverse('poll-details', args=(past_poll.id,))
+        url = reverse('poll_details', args=(past_poll.id,))
         response = self.client.get(url)
         self.assertContains(response, past_poll.title)
 
@@ -128,7 +128,7 @@ class PollResultsViewTests(TestCase):
         returns a 404 not found.
         """
         future_poll = create_poll(title='Future poll.', days=5)
-        url = reverse('poll-results', args=(future_poll.id,))
+        url = reverse('poll_results', args=(future_poll.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
@@ -138,6 +138,6 @@ class PollResultsViewTests(TestCase):
         displays the poll's text.
         """
         past_poll = create_poll(title='Past Poll.', days=-5)
-        url = reverse('poll-results', args=(past_poll.id,))
+        url = reverse('poll_results', args=(past_poll.id,))
         response = self.client.get(url)
         self.assertContains(response, past_poll.title)

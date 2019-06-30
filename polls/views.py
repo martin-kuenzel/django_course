@@ -61,7 +61,7 @@ def poll_vote(req,poll_id):
         selected_option.votes += 1
         selected_option.save()
 
-    return HttpResponseRedirect( reverse( 'poll-results', args=(poll.pk,) ) )
+    return HttpResponseRedirect( reverse( 'poll_results', args=(poll.pk,) ) )
 
 ## Poll creation
 
@@ -75,4 +75,4 @@ def save_poll(req):
         poll = Poll(author=req.user, title=req.POST['title'], content=req.POST['content'])
         #if poll.is_valid: #TODO
         poll.save()
-        return HttpResponseRedirect( reverse( 'polls-index') )
+        return HttpResponseRedirect( reverse( 'poll_index') )

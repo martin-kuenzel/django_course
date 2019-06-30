@@ -1,14 +1,15 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<h5 class="blue-grey darken-1 header">Welcome to the Blogs Mainpage</h5>
+<nav>
+    <div class="nav-wrapper blue-grey darken-1 ">
+        <span class="breadcrumb">Blog</span>
+    </div>
+</nav>
 <div class="collection">
     {% for post in posts %}
         <a class="collection-item" href="{% url 'post_details' post.pk %}">{{post.title}}
             <span class="badge">by {{post.author}} at {{post.date_created|date:"d/m/Y"}}</span>
         </a>
     {% endfor %}
-</div>
-<div class="right-align" style="margin-top:1rem;">
-    <a class="btn-small blue-grey lighten-2" href="{% url 'polls-index' %}">to the polls</a>
 </div>
 {% endblock content %}

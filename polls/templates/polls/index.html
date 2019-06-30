@@ -1,14 +1,15 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<h5 class="blue-grey darken-1 header">Welcome to the Polls Mainpage</h5>
+<nav>
+    <div class="nav-wrapper blue-grey darken-1 ">
+        <span class="breadcrumb">Poll</span>
+    </div>
+</nav>
 <div class="collection">
     {% for poll in polls %}
-    <a class="collection-item" href="{% url 'poll-details' poll.pk %}">{{poll.title}}
+    <a class="collection-item" href="{% url 'poll_details' poll.pk %}">{{poll.title}}
         <span class="badge">by {{poll.author}} at {{poll.date_created|date:"d/m/Y"}}</span>
     </a>
     {% endfor %}
-</div>
-<div class="right-align" style="margin-top:1rem;">
-    <a class="btn-small blue-grey lighten-2" href="{% url 'blog_index' %}">to the Blog</a>
 </div>
 {% endblock content %}

@@ -1,6 +1,11 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<h5 class="blue-grey darken-1 header">Create Poll</h5>
+<nav>
+    <div class="nav-wrapper blue-grey darken-1 ">
+        <a class="breadcrumb" href="{% url 'poll_index' %}">Poll</a>
+        <span class="breadcrumb">Create Poll</span>
+    </div>
+</nav>
 <div class="" style="padding:1rem;">
     <form method="POST" action="{% url 'poll_create_done' %}">
         {% csrf_token %}
