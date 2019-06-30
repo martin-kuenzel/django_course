@@ -35,5 +35,5 @@ def save_post(req):
         form.user = user
         post = form.save()
 
-        # return render_to_response('blog-index',RequestContext(req))
-        return HttpResponseRedirect( reverse( 'blog-index') )
+        # return render_to_response('blog_index',RequestContext(req))
+        return HttpResponseRedirect( reverse( 'blog_index') )

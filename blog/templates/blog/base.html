@@ -6,29 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{title}}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
-
+    
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
-
+    
+    <!-- Iconsets for materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script type="text/javascript">window.onload = function(){$('.dropdown-trigger').dropdown();};</script>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}">
 </head>
 <body>
-    <h3 class="blue-grey darken-3 mainheader"><a href="/">Corp. Mainheader</a></h3>
-    <div  class="blue-grey darken-3 header" style="padding-top:.1rem;padding-bottom:.1rem;">
-        {% if user.is_authenticated %}
-        <div class="right-align" style="">
-            <small>Logged in as {{user}}</small>&emsp;
-            <a class="lighten-2" href="{% url 'logout' %}">Logout</a>
+    {% if user.is_authenticated %}
+        <ul id="create_links" class="dropdown-content">
+            <li><a class="black-text" href="{% url 'post_create' %}">Create Post</a></li>
+            <li><a class="black-text" href="{% url 'poll_create' %}">Create Poll</a></li>
+        </ul>
+    {% endif %}
+    <nav  class="blue-grey darken-2">
+        <div class="nav-wrapper">
+            <a class="brand-logo" href="/">Corp. Mainheader</a>
+            <ul class="right hide-on-med-and-down">
+                {% if user.is_authenticated %}
+                    <li><small>Logged in as {{user}}</small>&emsp;|&emsp;</li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="create_links">Create<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="lighten-2" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a class="lighten-2" href="#">Signup</a></li>
+                    <li><a class="lighten-2" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
         </div>
-        {% else %}
-        <div class="right-align" style="margin-top:1rem;">
-            <a class="lighten-2" href="{% url 'login' %}">Login</a>
-        </div>
-        {% endif %}
-    </div>
+    </nav>
     {% block content %}
     {% endblock content %}
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
