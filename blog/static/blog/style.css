@@ -30,3 +30,5 @@ li:hover {
 .dropdown-content li a:hover {
     background: whitesmoke !important;
 }
+
+.breadcrumb:first-of-type { margin-left: 8px; }
