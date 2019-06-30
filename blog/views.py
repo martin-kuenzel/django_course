@@ -31,7 +31,7 @@ def save_post(req):
     user = req.user
     if req.method == 'POST':
         form = Post(author=user,title=req.POST['title'],content=req.POST['content'])
-        #if form.is_valid:
+        #if form.is_valid: #TODO
         form.user = user
         post = form.save()
 

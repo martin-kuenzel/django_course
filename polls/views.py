@@ -4,8 +4,11 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Poll, Option
+from django.views import generic
+from django.contrib.auth.decorators import login_required
 
+from .forms import PollCreateForm
+from .models import Poll, Option
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -22,8 +25,6 @@ class DetailView(generic.DetailView):
     """ get poll`s details if its date_created lies before/on now """
     def get_queryset(self):
         return Poll.objects.filter( date_created__lte = timezone.now() )
-
-
 class ResultsView(generic.DetailView):
     model = Poll
     template_name = 'polls/poll_results.html'
@@ -61,3 +62,17 @@ def poll_vote(req,poll_id):
         selected_option.save()
 
     return HttpResponseRedirect( reverse( 'poll-results', args=(poll.pk,) ) )
+
+## Poll creation
+
+class PollCreateView(generic.edit.FormView):
+    template_name = 'polls/poll_create.html'
+    form_class = PollCreateForm
+
+@login_required
+def save_poll(req):
+    if req.method == 'POST':
+        poll = Poll(author=req.user, title=req.POST['title'], content=req.POST['content'])
+        #if poll.is_valid: #TODO
+        poll.save()
+        return HttpResponseRedirect( reverse( 'polls-index') )

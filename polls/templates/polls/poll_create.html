@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="" style="padding:1rem;">
+    <form method="POST" action="{% url 'poll_create_done' %}">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn-small blue-grey lighten-2" type="submit" value="Save">Create poll</button>
+    </form>
+</div>
+
+{% endblock content %}

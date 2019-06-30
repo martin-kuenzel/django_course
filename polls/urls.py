@@ -9,4 +9,7 @@ urlpatterns = [
     path('<int:pk>/', views.ResultsView.as_view(), name='poll-results'),
 
     path('<int:poll_id>/vote/', views.poll_vote, name='poll-vote'),
+
+    path('poll_create/',views.PollCreateView.as_view(), name = 'poll_create'),
+    path('poll_create_done/', views.save_poll, name = 'poll_create_done')
 ]
