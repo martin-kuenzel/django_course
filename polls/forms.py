@@ -1,8 +1,16 @@
 from django.forms import ModelForm
+from .models import Poll, OptionSet
+from extra_views import InlineFormSetFactory
 
-from .models import Poll
+class OptionSetInLineFormSet(InlineFormSetFactory):
+    model = OptionSet
+    exclude = ['delete']
+    factor_kwargs = {
+        'extra' : 1
+    }
+    # fields = ['title']
 
 class PollCreateForm(ModelForm):
     class Meta:
-        fields = ['title','content']
         model = Poll
+        fields = ['title','content']

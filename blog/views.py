@@ -30,10 +30,9 @@ class PostCreateView(generic.edit.FormView):
 def save_post(req):
     user = req.user
     if req.method == 'POST':
-        form = Post(author=user,title=req.POST['title'],content=req.POST['content'])
-        #if form.is_valid: #TODO
-        form.user = user
-        post = form.save()
+        post = Post(author=user,title=req.POST['title'],content=req.POST['content'])
+        # if form.is_valid:
+        post = post.save()
+        return HttpResponseRedirect( reverse( 'blog_index') )
 
         # return render_to_response('blog_index',RequestContext(req))
-        return HttpResponseRedirect( reverse( 'blog_index') )

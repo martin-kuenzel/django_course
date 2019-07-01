@@ -26,9 +26,9 @@ class Poll(models.Model):
 class OptionSet(models.Model):
     poll = models.ForeignKey(Poll,on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    # votes = models.IntegerField(default=0)
-    #requires = models.ManyToManyField(Option,default=None)
-    #constraints = models.ManyToManyField(Option,default=None)
+    optionset_constraints = models.CharField(max_length=400, blank=True, null=True )
+    optionset_requires = models.CharField(max_length=400, blank=True, null=True )
+    input_type = models.CharField(max_length=25,default="radio")
 
     def __str__(self):
         return f'{self.title}'
@@ -36,8 +36,11 @@ class OptionSet(models.Model):
 class Option(models.Model):
     # poll = models.ForeignKey(Poll,on_delete=models.CASCADE)
     optionset = models.ForeignKey(OptionSet,on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200,default='Option Title')
     votes = models.IntegerField(default=0)
+    description = models.CharField(max_length=400, blank=True, null=True )
+
+    # optionset = models.CharField(max_length=200,default='optionset0')
 
     def __str__(self):
         return f'{self.title} ({self.votes} votes)'

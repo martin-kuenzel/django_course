@@ -8,22 +8,72 @@
 </nav>
 {% if error_message %}<p><strong style="color:red;">{{ error_message }}</strong></p>{% endif %}
 
-<form style="padding-top: 1rem; padding-bottom:1rem;" class="container" method="POST" action="{% url 'poll_vote' poll.id %}">
-    <div class="center-align">{{poll.content}}</div>
+<form style="margin-top: 1rem; padding-bottom:1rem;height:calc( 100vh - 10rem );overflow-y:scroll;" class="container" method="POST" action="{% url 'poll_vote' poll.id %}">
     {% csrf_token %}
+    <div class="center-align">{{poll.content}}</div>
     {% for optionset in poll.optionset_set.all %}
-        <fieldset class="card">
+        <fieldset class="card" id = "{{optionset.title}}" constraints = "{{optionset.optionset_constraints}}" requires = "{{optionset.optionset_requires}}">
             <legend>{{optionset.title}}</legend>
+            
             {% for option in optionset.option_set.all %}
             <p>
                 <label>
-                    <input class="with-gap" id="{{option.id}}" {% if forloop.counter == 1 %} checked {% endif %} value="{{option.id}}" name="{{optionset.pk}}" type="radio">
+                    <input type="{{optionset.input_type}}" class="with-gap" id="{{option.id}}" {% if forloop.counter == 1 %} checked {% endif %} value="{{option.id}}" name="{{optionset.pk}}" type="radio">
                     <span>{{option.title}}</span>
                 </label>
             </p>
             {% endfor %}
         </fieldset>
     {% endfor %}
+    <script type="text/javascript">
+    let set_constraints = () => {
+        console.log('-- CONSTRAINTS --')
+        Array.from( document.querySelectorAll('[constraints]') ).filter(x=>x.querySelectorAll(':checked').length>0).map(
+            x => x.getAttribute('constraints').split(',').filter( y => !y.match(/^(\s*|None)$/) ).map( 
+                y => {
+                    console.log( `"${document.querySelector(`[id="${y}"]`).id}" is disallowed by "${x.id}"`)
+                    document.querySelectorAll(`[id="${y}"] input`).forEach( x => { x.setAttribute('disabled',''); x.parentNode.style.opacity = .5;  } );
+                }
+            )
+        );
+    };
+    let set_requires = () => {
+        console.log('-- REQUIRES --')
+        Array.from( document.querySelectorAll('[requires]') ).map( x => {
+            if(
+                x.getAttribute('requires').split(',').filter( y => !y.match(/^(\s*|None)$/) ).map( 
+                    y => {
+                        console.log( `"${document.querySelector(`[id="${y}"]`).id}" is required by "${x.id}"` )
+                        return document.querySelector(`[id="${y}"] input:not(:checked)`)
+                    }
+                ).filter(x=>x).length > 0
+            )
+            x.querySelectorAll( 'input' ).forEach( x => { x.setAttribute('disabled',''); x.parentNode.style.opacity = .5;  } );
+        });
+    };
+    document.querySelectorAll('input').forEach(x=>x.oninput = () => { 
+        cleanup();
+        set_requires(); 
+        set_constraints(); 
+    } );
+
+    let cleanup = () => document.querySelectorAll( 'input' ).forEach( x => { x.removeAttribute('disabled'); x.parentNode.style.opacity = null;  } );
+    cleanup();
+    set_requires();
+    set_constraints();
+    </script>
+    <!-- <fieldset>
+    {% for option in poll.option_set.all %}
+        {% if option.description and forloop.counter > 1 %}</fieldset><fieldset>{% endif %}
+        {% if option.description %}<legend>{{option.description}}</legend>{% endif %}
+        <p>
+            <label>
+                <input class="with-gap" id="{{option.id}}" {% if forloop.counter == 1 %} checked {% endif %} value="{{option.id}}" name="{{option.optionset}}" type="radio">
+                <span>{{option.title}}</span>
+            </label>
+        </p>
+        {% endfor %}
+    </fieldset> -->
     <div class="center-align">
         <button class="btn-small green lighten-2" type="submit">voten</button>
     </div>
