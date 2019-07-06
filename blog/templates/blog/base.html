@@ -40,7 +40,7 @@
                     <li><a class="dropdown-trigger" href="#!" data-target="create_links">Create<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a class="lighten-2" href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
-                    <li><a class="lighten-2" href="#">Signup</a></li>
+                    <li><a class="lighten-2" href="{% url 'user_signup' %}">Signup</a></li>
                     <li><a class="lighten-2" href="{% url 'login' %}">Login</a></li>
                 {% endif %}
                 <li><a class="dropdown-trigger" href="#!" data-target="app_links"><i class="material-icons right">apps</i></a></li>

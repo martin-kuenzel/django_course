@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<nav>
+    <div class="nav-wrapper blue-grey darken-1 ">
+        <span class="breadcrumb">Create Account</span>
+    </div>
+</nav>
+<div class="" style="padding:1rem;">
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+                <small class="hide">{{field.help_text}}</small>
+            {% endif %}
+            {% for err in field.errors %}
+                <p class="red-text">{{error}}</p>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        <button class="btn-small blue-grey lighten-2" type="submit" value="Save">Signup</button>
+    </form>
+</div>
+
+{% endblock content %}

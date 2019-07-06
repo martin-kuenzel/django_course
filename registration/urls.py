@@ -10,6 +10,7 @@ urlpatterns = [
     path('password-reset-complete/',auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'),name='password_reset_complete'),
 
     #TODO
-    # path('create-user/',views.UserCreationFormView.as_view(),'user_create')
+    path('user_signup/',views.user_signup,name='user_signup'),
+    path('user_activate/<uidb64>/<token>/',views.activate_account, name='user_activate')
     #path('profile/<int:pk>',views.ProfileView.as_view(),name='user_profile')
 ]
